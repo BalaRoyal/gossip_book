@@ -30,8 +30,7 @@ const createQuestionFailed = (error) => ({
 export const createQuestion = (question) => async (dispatch) => {
   try {
     dispatch(startCreateQuestion());
-    const { data } = axiosWithAuth.post("/question/questions/", question);
-    console.log(data);
+    const { data } = await axiosWithAuth.post("/question/questions/", question);
     dispatch(finishCreateQuestion(data));
   } catch (error) {
     dispatch(createQuestionFailed(error));

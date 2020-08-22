@@ -29,6 +29,7 @@ export const createGossip = (gossipData) => async (dispatch) => {
   try {
     dispatch(startCreateGossip());
     const { data } = await axiosWithAuth.post("/gossip/gossips/", gossipData);
+    console.log(gossipData);
     dispatch(finishCreateGossip(data));
   } catch (error) {
     dispatch(createGossipFailed(error));
@@ -51,10 +52,10 @@ const fetchGossipsFailed = (error) => ({
   payload: { error },
 });
 
-export const fetchGossips = async (dispatch) => {
+export const fetchGossips = () => async (dispatch) => {
   try {
     dispatch(startFetchGossips());
-    const { data } = axiosWithAuth.get("/gossip/gossips/");
+    const { data } = await axiosWithAuth.get("/gossip/gossips/");
     dispatch(finishFetchGossips(data));
   } catch (error) {
     dispatch(fetchGossipsFailed(error));

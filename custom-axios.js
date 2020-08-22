@@ -2,18 +2,16 @@ import axios from "axios";
 import { AsyncStorage } from "react-native";
 
 const BASE_URL =
-  "http://gossipbookapi-env.eba-dfbzg3ss.us-east-1.elasticbeanstalk.com/api";
-const BASE_LOCAL_URL = "https://e531d2a38fae.ngrok.io/api";
-// Get authentication token from the async storage
+  "http://gbookapi-env-1.eba-5hrqc52f.us-east-1.elasticbeanstalk.com/api";
 
 // Create and export default axios instance.
 
 export default axios.create({
-  baseURL: BASE_LOCAL_URL,
+  baseURL: BASE_URL,
 });
 
 export const axiosWithAuth = axios.create({
-  baseURL: BASE_LOCAL_URL,
+  baseURL: BASE_URL,
 });
 
 axiosWithAuth.interceptors.request.use(

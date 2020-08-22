@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     flex: 1,
-    backgroundColor: "#ff6300",
+    backgroundColor: "#ffffff",
     justifyContent: "space-evenly",
     paddingBottom: 50,
   },
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     margin: 20,
     lineHeight: 40,
     letterSpacing: 1.5,
-    color: colors.whiteColor,
+    color: colors.textColor,
   },
   logoContainer: {
     borderColor: "red",

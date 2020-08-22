@@ -122,12 +122,12 @@ const styles = StyleSheet.create({
   },
   screen: {
     display: "flex",
-    backgroundColor: "#AC660C",
+    backgroundColor: "#fff",
   },
   headingText: {
     margin: 10,
     fontWeight: "bold",
-    color: colors.whiteColor,
+    color: colors.textColor,
     fontSize: 22,
 
     fontFamily: "open-sans",

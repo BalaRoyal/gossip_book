@@ -1,48 +1,55 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import colors from "../../constants/colors";
+import PropTypes from "prop-types";
+import moment from "moment";
 
 const ContentCard = (props) => {
+  const { image_url: imageUrl, title, created_at } = props;
+
   return (
     <View style={styles.card}>
       <View style={styles.cardHeading}>
         <View style={styles.userAvatar}></View>
         <View style={styles.userInfo}>
           <Text style={styles.username}> Mwibutsa Floribert </Text>
-          <Text style={styles.time}> 10:57 am </Text>
+          <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
         </View>
         <View style={styles.VoteStat}></View>
       </View>
+      <View style={styles.cardTitle}>
+        <Text style={styles.cardTitle}>{title}</Text>
+      </View>
 
-      <View style={styles.cardImage}>
-        <Image
-          source={{
-            uri: "https://fakeimg.pl/640x360",
-          }}
-          style={styles.image}
-        />
-      </View>
-      <View style={styles.cardText}>
-        <Text style={styles.cardText}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, id.
-          Lorem ipsum dolor.
-        </Text>
-      </View>
+      {imageUrl && (
+        <View style={styles.cardImage}>
+          <Image
+            source={{
+              uri: imageUrl,
+            }}
+            style={{ ...styles.image, minHeight: imageUrl ? 150 : 0 }}
+          />
+        </View>
+      )}
+      {props.gossip_description && (
+        <View>
+          <Text style={styles.cardText}>{props.gossip_description}</Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.whiteColor,
+    backgroundColor: "#f7f7f7",
     width: "90%",
-    margin: 5,
     alignSelf: "center",
     borderRadius: 4,
     marginBottom: 10,
     padding: 4,
-    borderWidth: 0.5,
-    borderColor: "#cccc",
+    borderBottomWidth: 0.5,
+    borderColor: "#ddd",
   },
   username: {
     fontWeight: "400",
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   userAvatar: {
-    backgroundColor: "#eee",
+    backgroundColor: "#cccc",
     padding: 10,
     width: 60,
     height: 60,
@@ -75,7 +82,6 @@ const styles = StyleSheet.create({
   },
   cardImage: {},
   image: {
-    minHeight: 150,
     width: "100%",
     maxHeight: 300,
   },
@@ -90,6 +96,17 @@ const styles = StyleSheet.create({
     color: colors.accentColor,
     fontSize: 8,
   },
+  cardTitle: {
+    fontWeight: "500",
+    color: colors.textColor,
+    margin: 5,
+  },
 });
 
+ContentCard.propTypes = {
+  image_url: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  votes: PropTypes.array,
+  gossip_description: PropTypes.string,
+};
 export default ContentCard;

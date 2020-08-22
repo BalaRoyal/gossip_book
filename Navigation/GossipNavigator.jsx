@@ -7,12 +7,11 @@ import {
 
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { SafeAreaView, Button, View, Platform } from "react-native";
+
 import {
   Ionicons,
-  FontAwesome,
   MaterialCommunityIcons,
-  SimpleLineIcons,
-  Entypo,
+  AntDesign,
 } from "@expo/vector-icons";
 
 import colors from "../constants/colors";
@@ -21,7 +20,9 @@ import UserInterestScreen, {
   userInterestScreenOptions,
 } from "../Screens/user/UserInterests";
 import PostsScreen, { postsScreenOptions } from "../Screens/posts/Posts";
-import LoginOptionScreen from "../Screens/user/AuthScreen";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/actions/user-auth";
+import CreatePostScreen from "../Screens/posts/CreatePostScreen";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -35,6 +36,7 @@ const defaultNavOptions = {
     fontFamily: "open-sans",
   },
 };
+
 const InterestingTopicStack = createStackNavigator();
 
 const TopicsNavigator = () => {
@@ -46,15 +48,6 @@ const TopicsNavigator = () => {
         options={userInterestScreenOptions}
       />
     </InterestingTopicStack.Navigator>
-  );
-};
-const AuthStack = createStackNavigator();
-
-export const AuthNavigator = () => {
-  return (
-    <AuthStack.Navigator screenOptions={defaultNavOptions}>
-      <AuthStack.Screen name="Feed" component={LoginOptionScreen} />
-    </AuthStack.Navigator>
   );
 };
 
@@ -79,56 +72,59 @@ export const PostNavigator = (props) => {
       shifting={true}
       activeColor={colors.primaryColor}
       barStyle={{
-        backgroundColor: colors.highlighColor,
-        padding: 5,
+        backgroundColor: colors.whiteColor,
       }}
       inactiveColor={colors.textColor}
     >
       <PostTabNavigator.Screen
-        name="Feed"
+        name="Home"
         component={HomeNavigation}
         options={{
           tabBarIcon: (props) => (
-            <SimpleLineIcons
-              name={Platform.OS === "android" ? "book-open" : "book-open"}
-              size={23}
+            <AntDesign
+              name={Platform.OS === "android" ? "home" : "home"}
+              size={24}
               color={props.color}
             />
           ),
-          tabBarLabel: "Gossips",
-          tabBarColor: colors.highlighColor,
+          tabBarLabel: "Home",
+          tabBarColor: "#F2E9DC",
         }}
       />
 
       <PostTabNavigator.Screen
-        name="Cheaters"
-        component={HomeNavigation}
+        name="NewPost"
+        component={CreatePostScreen}
         options={{
           tabBarIcon: (props) => (
-            <Entypo
-              name={Platform.OS === "android" ? "slideshare" : "slideshare"}
+            <Ionicons
+              name={Platform.OS === "android" ? "md-create" : "ios-create"}
               size={23}
               color={props.color}
             />
           ),
-          tabBarLabel: "Cheaters",
-          tabBarColor: colors.highlighColor,
+          tabBarLabel: "New post",
+          tabBarColor: "#FCFFEB",
         }}
       />
 
       <PostTabNavigator.Screen
-        name="Questions"
+        name="Notifications"
         component={HomeNavigation}
         options={{
           tabBarIcon: (props) => (
-            <SimpleLineIcons
-              name={Platform.OS === "android" ? "question" : "question"}
+            <Ionicons
+              name={
+                Platform.OS === "android"
+                  ? "ios-notifications"
+                  : "ios-notifications-outline"
+              }
               size={23}
               color={props.color}
             />
           ),
-          tabBarLabel: "Questions",
-          tabBarColor: colors.highlighColor,
+          tabBarLabel: "Notifications",
+          tabBarColor: "#F8FFF4",
         }}
       />
     </PostTabNavigator.Navigator>
@@ -138,6 +134,7 @@ export const PostNavigator = (props) => {
 const DrawerNavigator = createDrawerNavigator();
 
 export const MainNavigator = (props) => {
+  const dispatch = useDispatch();
   return (
     <DrawerNavigator.Navigator
       drawerContent={(props) => (
@@ -149,7 +146,7 @@ export const MainNavigator = (props) => {
             }}
           >
             <DrawerItemList {...props} />
-            <Button title="Logout" />
+            <Button title="Logout" onPress={() => dispatch(logout())} />
           </SafeAreaView>
         </View>
       )}
