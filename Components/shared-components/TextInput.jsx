@@ -22,7 +22,6 @@ const Input = (props) => (
 
 const styles = StyleSheet.create({
   input: {
-    color: "red",
     backgroundColor: colors.whiteColor,
     height: 60,
   },

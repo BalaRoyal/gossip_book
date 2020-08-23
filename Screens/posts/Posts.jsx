@@ -25,6 +25,10 @@ const PostsScreen = (props) => {
     }
   };
 
+  const postClickHandler = (data) => {
+    props.navigation.navigate("Single", { data });
+  };
+
   const { getQuestions, getGossips } = props;
 
   useEffect(() => {
@@ -85,7 +89,13 @@ const PostsScreen = (props) => {
       <FlatList
         ListHeaderComponent={listHeader}
         data={postType === "question" ? questions : gossipList}
-        renderItem={({ item, index }) => <ContentCard {...item} key={index} />}
+        renderItem={({ item, index }) => (
+          <ContentCard
+            {...item}
+            key={index}
+            onPostOverview={() => postClickHandler(item)}
+          />
+        )}
         keyExtractor={(item) => `${item.id}`}
         ListFooterComponent={listFooter}
       />

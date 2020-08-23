@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableNativeFeedback,
+} from "react-native";
 import colors from "../../constants/colors";
 import PropTypes from "prop-types";
 import moment from "moment";
@@ -8,48 +14,58 @@ const ContentCard = (props) => {
   const { image_url: imageUrl, title, created_at } = props;
 
   return (
-    <View style={styles.card}>
-      <View style={styles.cardHeading}>
-        <View style={styles.userAvatar}></View>
-        <View style={styles.userInfo}>
-          <Text style={styles.username}> Mwibutsa Floribert </Text>
-          <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
+    <TouchableNativeFeedback onPress={props.onPostOverview}>
+      <View style={styles.card}>
+        <View style={styles.cardHeading}>
+          <View style={styles.userAvatar}></View>
+          <View style={styles.userInfo}>
+            <Text style={styles.username}> Mwibutsa Floribert </Text>
+            <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
+          </View>
+          <View style={styles.VoteStat}></View>
         </View>
-        <View style={styles.VoteStat}></View>
-      </View>
-      <View style={styles.cardTitle}>
-        <Text style={styles.cardTitle}>{title}</Text>
-      </View>
+        <View style={styles.cardTitle}>
+          <Text style={styles.cardTitle}>{title}</Text>
+        </View>
 
-      {imageUrl && (
-        <View style={styles.cardImage}>
-          <Image
-            source={{
-              uri: imageUrl,
-            }}
-            style={{ ...styles.image, minHeight: imageUrl ? 150 : 0 }}
-          />
-        </View>
-      )}
-      {props.gossip_description && (
-        <View>
-          <Text style={styles.cardText}>{props.gossip_description}</Text>
-        </View>
-      )}
-    </View>
+        {imageUrl && (
+          <View style={styles.cardImage}>
+            <Image
+              source={{
+                uri: imageUrl,
+              }}
+              style={{ ...styles.image, minHeight: imageUrl ? 150 : 0 }}
+            />
+          </View>
+        )}
+        {props.gossip_description && (
+          <View>
+            <Text style={styles.cardText}>{props.gossip_description}</Text>
+          </View>
+        )}
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#f7f7f7",
-    width: "90%",
+    backgroundColor: "#fff",
+    width: "98%",
     alignSelf: "center",
-    borderRadius: 4,
-    marginBottom: 10,
+    marginBottom: 5,
     padding: 4,
-    borderBottomWidth: 0.5,
-    borderColor: "#ddd",
+    paddingLeft: 10,
+    paddingRight: 10,
+    elevation: 1,
+    shadowOffset: {
+      width: 1,
+      height: 0,
+    },
+    shadowColor: "#D9DECE",
+    shadowOpacity: 1.0,
+    margin: 2,
+    borderRadius: 10,
   },
   username: {
     fontWeight: "400",

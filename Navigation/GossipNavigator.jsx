@@ -23,6 +23,7 @@ import PostsScreen, { postsScreenOptions } from "../Screens/posts/Posts";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/user-auth";
 import CreatePostScreen from "../Screens/posts/CreatePostScreen";
+import PostOverviewScreen from "../Screens/posts/PostOverviewScreen";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -61,6 +62,7 @@ export const HomeNavigation = () => {
         component={PostsScreen}
         options={postsScreenOptions}
       />
+      <PostStack.Screen name="Single" component={PostOverviewScreen} />
     </PostStack.Navigator>
   );
 };
