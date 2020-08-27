@@ -1,11 +1,12 @@
-import React, { useReducer } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
-import colors from "../../constants/colors";
-import InterestCard from "../../Components/shared-components/InterestCard";
-import Button from "../../Components/shared-components/Button";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import HeaderButton from "../../Components/shared-components/HeaderButton";
+import React, { useReducer } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
+import Button from '../../Components/Button';
+import HeaderButton from '../../Components/HeaderButton';
+import InterestCard from '../../Components/InterestCard';
+import colors from '../../constants/colors';
 
 const SELECT = "SELECT";
 const DESELECT = "DESELECT";

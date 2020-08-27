@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
-import ContentCard from "../../Components/shared-components/ContentCard";
-import colors from "../../constants/colors";
-import { FontAwesome } from "@expo/vector-icons";
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
-import { Button } from "react-native-paper";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { createComment } from "../../redux/actions/post/comment";
-import { useDispatch } from "react-redux";
-import Comment from "../../Components/Comment";
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
+import { Button } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
+
+import Comment from '../../Components/Comment';
+import ContentCard from '../../Components/ContentCard';
+import colors from '../../constants/colors';
+import { createComment } from '../../redux/actions/post/comment';
 
 const PostOverviewScreen = ({ route, navigation }) => {
   const { data } = route.params;

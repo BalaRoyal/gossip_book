@@ -1,14 +1,9 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableNativeFeedback,
-} from "react-native";
-import colors from "../../constants/colors";
-import PropTypes from "prop-types";
-import moment from "moment";
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+
+import colors from '../constants/colors';
 
 const ContentCard = (props) => {
   const { image_url: imageUrl, title, created_at } = props;

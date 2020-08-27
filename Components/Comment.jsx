@@ -1,7 +1,9 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
-import colors from "../constants/colors";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+
+import colors from '../constants/colors';
+
 const Comment = (props) => {
   return (
     <View style={styles.comment}>

@@ -1,9 +1,5 @@
-import {
-  CREATE_COMMENT_START,
-  CREATE_COMMENT_SUCCESS,
-  CREATE_COMMENT_FAILURE,
-} from "../../action-types/post/post-types";
-import { axiosWithAuth } from "../../../custom-axios";
+import { axiosWithAuth } from '../../../custom-axios';
+import { CREATE_COMMENT_FAILURE, CREATE_COMMENT_START, CREATE_COMMENT_SUCCESS } from '../../action-types/post/post-types';
 
 const createCommentStart = () => ({ type: CREATE_COMMENT_START });
 const createCommentSuccess = (data) => ({

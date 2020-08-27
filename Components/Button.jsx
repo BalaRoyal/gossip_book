@@ -1,7 +1,8 @@
-import { Button } from "react-native-paper";
-import { Platform, StyleSheet, Keyboard } from "react-native";
-import React from "react";
-import colors from "../../constants/colors";
+import React from 'react';
+import { Keyboard, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
+
+import colors from '../constants/colors';
 
 export const CustomButton = (props) => (
   <Button

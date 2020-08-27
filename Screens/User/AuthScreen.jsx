@@ -1,14 +1,15 @@
-import React from "react";
-import { View, StyleSheet, Image, ActivityIndicator } from "react-native";
-import Button from "../../Components/shared-components/Button";
-import colors from "../../constants/colors";
-import { Entypo } from "@expo/vector-icons";
-import { Text } from "react-native-paper";
-import LogoImage from "../../assets/images/gossip_book_logo.png";
-import { login } from "../../redux/actions/user-auth";
-import { connect } from "react-redux";
-import * as Google from "expo-google-app-auth";
-import * as Facebook from "expo";
+import { Entypo } from '@expo/vector-icons';
+import * as Google from 'expo-google-app-auth';
+import React from 'react';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { connect } from 'react-redux';
+
+import LogoImage from '../../assets/images/gossip_book_logo.png';
+import Button from '../../Components/Button';
+import colors from '../../constants/colors';
+import { login } from '../../redux/actions/user-auth';
+
 const IOS_GOOGLE_AUTH_ID =
   "922743539522-i36qqi8rmaqgos9cud5a0rqklldo042c.apps.googleusercontent.com";
 const ANDROID_GOOGLE_AUTH_ID =

@@ -1,8 +1,4 @@
-import {
-  CREATE_COMMENT_START,
-  CREATE_COMMENT_SUCCESS,
-  CREATE_COMMENT_FAILURE,
-} from "../../action-types/post/post-types";
+import { CREATE_COMMENT_FAILURE, CREATE_COMMENT_START, CREATE_COMMENT_SUCCESS } from '../../action-types/post/post-types';
 
 const initialState = {
   comment: null,

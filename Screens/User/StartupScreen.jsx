@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  AsyncStorage,
-  ActivityIndicator,
-} from "react-native";
-import { useDispatch } from "react-redux";
-import * as authActions from "../../redux/actions/user-auth";
-import Colors from "../../constants/colors";
+import React, { useEffect } from 'react';
+import { ActivityIndicator, AsyncStorage, StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+
+import Colors from '../../constants/colors';
+import * as authActions from '../../redux/actions/user-auth';
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();

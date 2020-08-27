@@ -1,22 +1,14 @@
-import React, { useState, useReducer, useCallback } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  Keyboard,
-} from "react-native";
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useCallback, useReducer, useState } from 'react';
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { TextInput as Input } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 
-import Chip from "../../Components/shared-components/Chip";
-import colors from "../../constants/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { TextInput as Input } from "react-native-paper";
-import { TouchableNativeFeedback } from "react-native-gesture-handler";
-import { useDispatch } from "react-redux";
-
-import { createQuestion } from "../../redux/actions/post/question";
-import { createGossip } from "../../redux/actions/post/gossip";
+import Chip from '../../Components/Chip';
+import colors from '../../constants/colors';
+import { createGossip } from '../../redux/actions/post/gossip';
+import { createQuestion } from '../../redux/actions/post/question';
 
 const VALUE_CHANGE = "VALUE_CHANGE";
 const VALIDATION_ERROR = "VALIDATION_ERROR";
@@ -272,4 +264,10 @@ const styles = StyleSheet.create({
   },
 });
 
+export const newPostScreenOptions = (navData) => ({
+  tabBarLabel: "New post",
+  tabBarIcon: ({ color }) => (
+    <Ionicons name="ios-create" color={color} size={26} />
+  ),
+});
 export default CreatePostScreen;

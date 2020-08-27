@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import colors from "../../constants/colors";
-import { Text } from "react-native-paper";
-import { TouchableHighlight } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, TouchableHighlight, View } from 'react-native';
+import { Text } from 'react-native-paper';
+
+import colors from '../constants/colors';
+
 const InterestCard = (props) => {
   const { selected } = props;
   const func = props.selected ? props.handleDeselect : props.handleSelected;

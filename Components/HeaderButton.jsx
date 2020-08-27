@@ -1,8 +1,9 @@
-import React from "react";
-import { HeaderButton } from "react-navigation-header-buttons";
-import { FontAwesome } from "@expo/vector-icons";
-import colors from "../../constants/colors";
-import { Platform } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+import React from 'react';
+import { Platform } from 'react-native';
+import { HeaderButton } from 'react-navigation-header-buttons';
+
+import colors from '../constants/colors';
 
 const CustomHeaderButton = (props) => {
   return (

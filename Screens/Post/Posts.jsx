@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { connect } from 'react-redux';
 
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
-import colors from "../../constants/colors";
-
-import PostType from "../../Components/shared-components/Chip";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import HeaderButton from "../../Components/shared-components/HeaderButton";
-import ContentCard from "../../Components/shared-components/ContentCard";
-import { fetchGossips } from "../../redux/actions/post/gossip";
-import { fetchQuestions } from "../../redux/actions/post/question";
-import { connect } from "react-redux";
-
-import { Searchbar } from "react-native-paper";
+import PostType from '../../Components/Chip';
+import ContentCard from '../../Components/ContentCard';
+import HeaderButton from '../../Components/HeaderButton';
+import colors from '../../constants/colors';
+import { fetchGossips } from '../../redux/actions/post/gossip';
+import { fetchQuestions } from '../../redux/actions/post/question';
 
 const PostsScreen = (props) => {
   const [postType, setPostType] = useState("question");
@@ -119,8 +118,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    borderTopWidth: 1,
-    borderTopColor: colors.highlighColor,
     alignSelf: "center",
     marginTop: 10,
     backgroundColor: "#ffff",
@@ -186,4 +183,10 @@ const mapDispatchToProps = (dispatch) => ({
   getGossips: () => dispatch(fetchGossips()),
 });
 
+export const postNavigationOptions = (navData) => ({
+  tabBarLabel: "Home",
+  tabBarIcon: ({ color }) => (
+    <MaterialCommunityIcons name="home" color={color} size={26} />
+  ),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(PostsScreen);

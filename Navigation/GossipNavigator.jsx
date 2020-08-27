@@ -1,33 +1,28 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import {
-  createDrawerNavigator,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { Platform } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { SafeAreaView, Button, View, Platform } from "react-native";
-
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-} from "@expo/vector-icons";
-
-import colors from "../constants/colors";
-
-import UserInterestScreen, {
-  userInterestScreenOptions,
-} from "../Screens/user/UserInterests";
-import PostsScreen, { postsScreenOptions } from "../Screens/posts/Posts";
-import { useDispatch } from "react-redux";
-import { logout } from "../redux/actions/user-auth";
-import CreatePostScreen from "../Screens/posts/CreatePostScreen";
-import PostOverviewScreen from "../Screens/posts/PostOverviewScreen";
+import HeaderButton from '../Components/HeaderButton';
+import colors from '../constants/colors';
+import { logout } from '../redux/actions/user-auth';
+import AnswersScreen, { answerScreenOptions } from '../Screens/Post/Answers';
+import NewPostScreen, { newPostScreenOptions } from '../Screens/Post/CreatePostScreen';
+import PostOverviewScreen from '../Screens/Post/PostOverviewScreen';
+import HomeScreen, { postNavigationOptions } from '../Screens/Post/Posts';
 
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: Platform.OS === "android" ? colors.primaryColor : "",
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+    shadowColor: 0,
+    backgroundColor: "#fff",
+    borderBottomColor: "#fff",
+    shadowColor: "#fff",
   },
   headerTintColor: Platform.OS === "android" ? "white" : colors.primaryColor,
   headerTitleStyle: {
@@ -38,154 +33,108 @@ const defaultNavOptions = {
   },
 };
 
-const InterestingTopicStack = createStackNavigator();
+const getHeaderTitle = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
 
-const TopicsNavigator = () => {
-  return (
-    <InterestingTopicStack.Navigator>
-      <InterestingTopicStack.Screen
-        component={UserInterestScreen}
-        name="Customize your feed"
-        options={userInterestScreenOptions}
-      />
-    </InterestingTopicStack.Navigator>
-  );
+  switch (routeName) {
+    case "NewPost":
+      return "News Post";
+    case "Answers":
+      return "Answers";
+    case "Notifications":
+      return "Notifications";
+  }
 };
 
-const PostStack = createStackNavigator();
+// TAB NAVIGATOR
 
-export const HomeNavigation = () => {
-  return (
-    <PostStack.Navigator screenOptions={defaultNavOptions}>
-      <PostStack.Screen
-        name="Home"
-        component={PostsScreen}
-        options={postsScreenOptions}
-      />
-      <PostStack.Screen name="Single" component={PostOverviewScreen} />
-    </PostStack.Navigator>
-  );
-};
-const PostTabNavigator = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
-export const PostNavigator = (props) => {
-  return (
-    <PostTabNavigator.Navigator
-      shifting={true}
-      activeColor={colors.primaryColor}
-      barStyle={{
-        backgroundColor: colors.whiteColor,
-      }}
-      inactiveColor={colors.textColor}
-    >
-      <PostTabNavigator.Screen
-        name="Home"
-        component={HomeNavigation}
-        options={{
-          tabBarIcon: (props) => (
-            <AntDesign
-              name={Platform.OS === "android" ? "home" : "home"}
-              size={24}
-              color={props.color}
-            />
-          ),
-          tabBarLabel: "Home",
-          tabBarColor: "#F2E9DC",
-        }}
-      />
+const BottomTabNavigation = () => (
+  <Tab.Navigator
+    activeColor={colors.primaryColor}
+    defaultNavOptions={defaultNavOptions}
+    barStyle={{ backgroundColor: colors.whiteColor }}
+  >
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={postNavigationOptions}
+    />
+    <Tab.Screen
+      name="NewPost"
+      component={NewPostScreen}
+      options={newPostScreenOptions}
+    />
+    <Tab.Screen
+      name="Answers"
+      component={AnswersScreen}
+      options={answerScreenOptions}
+    />
+    <Tab.Screen
+      name="Notifications"
+      options={newPostScreenOptions}
+      component={NewPostScreen}
+    />
+  </Tab.Navigator>
+);
 
-      <PostTabNavigator.Screen
-        name="NewPost"
-        component={CreatePostScreen}
-        options={{
-          tabBarIcon: (props) => (
-            <Ionicons
-              name={Platform.OS === "android" ? "md-create" : "ios-create"}
-              size={23}
-              color={props.color}
-            />
-          ),
-          tabBarLabel: "New post",
-          tabBarColor: "#FCFFEB",
-        }}
-      />
+// STACK NAVIGATOR
 
-      <PostTabNavigator.Screen
-        name="Notifications"
-        component={HomeNavigation}
-        options={{
-          tabBarIcon: (props) => (
-            <Ionicons
-              name={
-                Platform.OS === "android"
-                  ? "ios-notifications"
-                  : "ios-notifications-outline"
+const Stack = createStackNavigator();
+
+export const GossipStackNavigator = () => (
+  <Stack.Navigator defaultNavOptions={defaultNavOptions}>
+    <Stack.Screen
+      name="GossipBook"
+      component={BottomTabNavigation}
+      options={({ route, navigation }) => ({
+        headerTitle: "",
+        headerStyle: defaultNavOptions.headerStyle,
+
+        headerLeft: () => (
+          <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+              title="Menu"
+              iconName={
+                Platform.OS === "android" ? "user-circle-0" : "user-circle-o"
               }
-              size={23}
-              color={props.color}
+              iconSize={23}
+              onPress={() => {
+                // navigation.toggleDrawer();
+                // console.log(navigation);
+                logout();
+              }}
             />
-          ),
-          tabBarLabel: "Notifications",
-          tabBarColor: "#F8FFF4",
-        }}
-      />
-    </PostTabNavigator.Navigator>
-  );
-};
+          </HeaderButtons>
+        ),
 
-const DrawerNavigator = createDrawerNavigator();
-
-export const MainNavigator = (props) => {
-  const dispatch = useDispatch();
-  return (
-    <DrawerNavigator.Navigator
-      drawerContent={(props) => (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <SafeAreaView
-            forceInset={{
-              top: "always",
-              horizontal: "never",
+        headerRight: () => (
+          <Searchbar
+            placeholder="search..."
+            style={{
+              elevation: 0,
+              flexDirection: "row-reverse",
+              width: 300,
+              height: 40,
+              padding: 0,
+              right: 10,
+              // marginTop: 20,
             }}
-          >
-            <DrawerItemList {...props} />
-            <Button title="Logout" onPress={() => dispatch(logout())} />
-          </SafeAreaView>
-        </View>
-      )}
-      drawerContentOptions={{
-        activeTintColor: colors.primaryColor,
-      }}
-    >
-      <DrawerNavigator.Screen
-        name="Profile"
-        component={PostNavigator}
-        options={{
-          drawerIcon: (props) => (
-            <MaterialCommunityIcons
-              name={
-                Platform.OS === "android"
-                  ? "account-settings"
-                  : "account-settings"
-              }
-              size={23}
-              color={props.color}
-            />
-          ),
-        }}
-      />
-      <DrawerNavigator.Screen
-        name="Interesting topics"
-        component={TopicsNavigator}
-        options={{
-          drawerIcon: (props) => (
-            <MaterialCommunityIcons
-              name={Platform.OS === "android" ? "wunderlist" : "wunderlist"}
-              size={23}
-              color={props.color}
-            />
-          ),
-        }}
-      />
-    </DrawerNavigator.Navigator>
-  );
-};
+            inputStyle={{
+              margin: 0,
+              borderColor: "#eeee",
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+          />
+        ),
+      })}
+    />
+    <Stack.Screen
+      name="Single"
+      options={{ headerStyle: defaultNavOptions.headerStyle }}
+      component={PostOverviewScreen}
+    />
+  </Stack.Navigator>
+);

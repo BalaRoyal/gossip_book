@@ -1,7 +1,8 @@
-import React from "react";
-import { Chip } from "react-native-paper";
-import { StyleSheet } from "react-native";
-import colors from "../../constants/colors";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Chip } from 'react-native-paper';
+
+import colors from '../constants/colors';
 
 const PostType = (props) => {
   return (
