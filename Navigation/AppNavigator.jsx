@@ -3,9 +3,10 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
-import AuthScreen from '../Screens/User/AuthScreen';
-import StartupScreen from '../Screens/User/StartupScreen';
+import AuthScreen from '../Screens/AuthScreen';
+import StartupScreen from '../Screens/StartupScreen';
 import { MainNavigator } from './GossipNavigator';
+import { navigationRef } from './RootNavigation';
 
 const AppNavigator = (props) => {
   const isAuth = useSelector((state) => !!state.auth.token);
@@ -13,7 +14,7 @@ const AppNavigator = (props) => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         {isAuth && <MainNavigator />}
         {!isAuth && didTryAutoLogin && <AuthScreen />}
         {!isAuth && !didTryAutoLogin && <StartupScreen />}

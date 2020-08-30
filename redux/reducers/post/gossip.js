@@ -1,11 +1,11 @@
 import {
-  INITIATE_CREATE_GOSSIP,
   FAILED_CREATE_GOSSIP,
-  FINISH_CREATE_GOSSIP,
-  INITIATE_FETCH_GOSSIPS,
-  FINISH_FETCH_GOSSIPS,
   FAILED_FETCH_GOSSIPS,
-} from "../../action-types/post/post-types";
+  FINISH_CREATE_GOSSIP,
+  FINISH_FETCH_GOSSIPS,
+  INITIATE_CREATE_GOSSIP,
+  INITIATE_FETCH_GOSSIPS,
+} from '../../action-types/post/post-types';
 
 const initialState = {
   gossips: [],

@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxThunk from 'redux-thunk';
 
 import gossipReducer from './reducers/post/gossip';
+import postOverViewReducer from './reducers/post/postOverView';
 import questionReducer from './reducers/post/question';
 import userAnswers from './reducers/user/answers';
 import authReducer from './reducers/user/auth';
@@ -16,6 +17,7 @@ const baseReducer = combineReducers({
   gossip: gossipReducer,
   userAnswers: userAnswers,
   user: profileReducer,
+  postOverview: postOverViewReducer,
 });
 
 const store = createStore(

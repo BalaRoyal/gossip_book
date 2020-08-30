@@ -1,15 +1,14 @@
+import jwtDecode from 'jwt-decode';
+import { AsyncStorage } from 'react-native';
+
+import axios from '../../custom-axios';
 import {
-  INITIATE_USER_LOGIN,
-  FINISH_USER_LOGIN,
   FAILED_USER_LOGIN,
-  SET_DID_TRY_AL,
+  FINISH_USER_LOGIN,
+  INITIATE_USER_LOGIN,
   LOGOUT,
-} from "../action-types/user/user-action-types";
-
-import jwtDecode from "jwt-decode";
-
-import { AsyncStorage } from "react-native";
-import axios from "../../custom-axios";
+  SET_DID_TRY_AL,
+} from '../action-types/user/user-action-types';
 
 // Initiate user login action
 const initUserLogin = () => ({ type: INITIATE_USER_LOGIN });
@@ -63,8 +62,6 @@ export const login = (accessToken, loginMethod) => async (dispatch) => {
     });
 
     const decodedToken = jwtDecode(data.token);
-    // console.log(decodedToken);
-    console.log(data.user.user_id);
     dispatch(finishUserLogin(data));
     dispatch(setLogoutTimer(decodedToken.exp * 1000));
 
@@ -74,7 +71,6 @@ export const login = (accessToken, loginMethod) => async (dispatch) => {
 
     saveDataToStorage(data.token, decodedToken.user_id, expirationDate);
   } catch (error) {
-    console.log(error);
     dispatch(userLoginFailed(error));
   }
 };

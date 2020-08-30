@@ -6,6 +6,6 @@ export default {
   blueColor: "#3169C4",
   brownColor: "#D11149",
   highlighColor: "#EDCB96",
-  textColor: "#888",
-  textColorPrimary: "#8888",
+  textColor: "#555",
+  textColorPrimary: "#888",
 };

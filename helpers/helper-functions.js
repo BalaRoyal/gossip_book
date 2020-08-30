@@ -35,6 +35,13 @@ export const toSnakeCase = (objectData) => {
   return newObj;
 };
 
+export const attributeToSnakeCase = (key) => {
+  return key
+    .split(/(?=[A-Z])/)
+    .join("_")
+    .toLowerCase();
+};
+
 export const toCamelCase = (attribute) => {
   attribute = attribute.split("_");
   const firstWord = attribute[0];

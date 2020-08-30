@@ -4,6 +4,9 @@ import {
   FAILED_FETCH_QUESTIONS,
   FINISH_CREATE_QUESTION,
   FINISH_FETCH_QUESTIONS,
+  GET_QUESTION_BY_ID_FAILURE,
+  GET_QUESTION_BY_ID_START,
+  GET_QUESTION_BY_ID_SUCCESS,
   INITIATE_CREATE_QUESTION,
   INITIATE_FETCH_QUESTIONS,
 } from '../../action-types/post/post-types';
@@ -29,7 +32,7 @@ const createQuestionFailed = (error) => ({
 export const createQuestion = (question) => async (dispatch) => {
   try {
     dispatch(startCreateQuestion());
-    const { data } = await axiosWithAuth.post("/question/questions/", question);
+    const { data } = await customAxios.post("/question/questions/", question);
     dispatch(finishCreateQuestion(data));
   } catch (error) {
     dispatch(createQuestionFailed(error));
@@ -63,3 +66,29 @@ export const fetchQuestions = () => async (dispatch) => {
 };
 
 // --END-- FETCH QUESTIONS
+
+// GET QUESTION BY ID
+
+const getQuestionByIdStart = () => ({
+  type: GET_QUESTION_BY_ID_START,
+});
+
+const getQuestionByIdSuccess = (data) => ({
+  type: GET_QUESTION_BY_ID_SUCCESS,
+  payload: { data },
+});
+
+const getQuestionByIdFailure = (error) => ({
+  type: GET_QUESTION_BY_ID_FAILURE,
+  payload: { error },
+});
+
+export const getQuestionById = (id) => async (dispatch) => {
+  try {
+    dispatch(getQuestionByIdStart());
+    const { data } = await axiosWithAuth.get(`/question/questions/${id}`);
+    dispatch(getQuestionByIdSuccess(data));
+  } catch (error) {
+    dispatch(getQuestionByIdFailure(error));
+  }
+};

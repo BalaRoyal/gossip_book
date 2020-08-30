@@ -1,12 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import store from "./redux/store";
-import { Provider } from "react-redux";
-import { Provider as PaperProvider, DefaultTheme } from "react-native-paper";
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
-import AppNavigator from "./Navigation/AppNavigator";
-import colors from "./constants/colors";
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Provider } from 'react-redux';
+
+import colors from './constants/colors';
+import ErrorBoundary from './ErrorBoundary';
+import AppNavigator from './Navigation/AppNavigator';
+import store from './redux/store';
 
 const theme = {
   ...DefaultTheme,
@@ -39,7 +41,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <PaperProvider theme={theme}>
-        <AppNavigator />
+        <ErrorBoundary>
+          <AppNavigator />
+        </ErrorBoundary>
         <StatusBar style="auto" />
       </PaperProvider>
     </Provider>

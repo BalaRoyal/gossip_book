@@ -5,10 +5,13 @@ import {
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_START,
   GET_USER_PROFILE_SUCCESS,
-} from "../../action-types/user/user-action-types";
+  UPLOAD_USER_IMAGE_FAILURE,
+  UPLOAD_USER_IMAGE_START,
+  UPLOAD_USER_IMAGE_SUCCESS,
+} from '../../action-types/user/user-action-types';
 
 const initialState = {
-  profile: null,
+  profile: {},
   loading: false,
   error: null,
 };
@@ -27,6 +30,16 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, loading: false, profile: payload.data };
     case EDIT_USER_PROFILE_FAILURE:
       return { ...state, loading: false, error: payload.error };
+    case UPLOAD_USER_IMAGE_START:
+      return { ...state, loading: true, error: null };
+    case UPLOAD_USER_IMAGE_SUCCESS:
+      return { ...state, loading: false, profile: payload.data };
+    case UPLOAD_USER_IMAGE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: payload.error,
+      };
     default:
       return state;
   }
