@@ -39,7 +39,7 @@ const AnswerCard = (props) => {
         </View>
         <Button
           icon={({ size, color }) => (
-            <FontAwesome color={color} size={24} name="share-alt" />
+            <FontAwesome color={color} size={18} name="share-alt" />
           )}
           mode="outlined"
           style={styles.button}

@@ -1,17 +1,13 @@
 import React from 'react';
-import { Keyboard, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import colors from '../constants/colors';
 
 export const CustomButton = (props) => (
   <Button
-    onPress={() => {
-      Keyboard.dismiss();
-    }}
+    onPress={props.onClick}
     mode="contained"
-    textAlign="left"
-    {...props}
     style={{ ...styles.button, ...props.style }}
   >
     {props.children}

@@ -20,3 +20,29 @@ export const getInitials = (firstName, lastName) => {
   if (initials.length < 2 && !firstName) initials += lastName[1];
   return initials;
 };
+
+export const toSnakeCase = (objectData) => {
+  const newObj = {};
+  for (let key of Object.keys(objectData)) {
+    newObj[
+      key
+        .split(/(?=[A-Z])/)
+        .join("_")
+        .toLowerCase()
+    ] = objectData[key];
+  }
+
+  return newObj;
+};
+
+export const toCamelCase = (attribute) => {
+  attribute = attribute.split("_");
+  const firstWord = attribute[0];
+  const subsequentWords = attribute.slice(1);
+
+  const capitalizedWords = subsequentWords.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+
+  return [firstWord].concat(capitalizedWords).join("");
+};

@@ -14,9 +14,10 @@ const Input = (props) => (
     theme={{
       colors: {
         primary: colors.primaryColor,
+        accent: colors.textColor,
       },
     }}
-    underlineColor={colors.underlineColor}
+    underlineColor="#fff"
     {...props}
   />
 );
@@ -24,7 +25,8 @@ const Input = (props) => (
 const styles = StyleSheet.create({
   input: {
     backgroundColor: colors.whiteColor,
-    height: 60,
+    margin: 3,
+    color: colors.textColor,
   },
 });
 
