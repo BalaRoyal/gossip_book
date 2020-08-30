@@ -1,4 +1,4 @@
-import customAxios, { axiosWithAuth } from '../../../custom-axios';
+import customAxios from '../../../custom-axios';
 import {
   FAILED_CREATE_QUESTION,
   FAILED_FETCH_QUESTIONS,
@@ -27,9 +27,10 @@ const createQuestionFailed = (error) => ({
 });
 
 export const createQuestion = (question) => async (dispatch) => {
+  console.log(question);
   try {
     dispatch(startCreateQuestion());
-    const { data } = await axiosWithAuth.post("/question/questions/", question);
+    const { data } = await customAxios.post("/question/questions/", question);
     dispatch(finishCreateQuestion(data));
   } catch (error) {
     dispatch(createQuestionFailed(error));

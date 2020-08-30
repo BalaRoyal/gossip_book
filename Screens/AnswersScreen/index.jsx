@@ -1,10 +1,11 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AnswerCard from '../../Components/AnswerCard';
 import { getUserGossipComments, getUserQuestionAnswers } from '../../redux/actions/user/answers';
+import styles from './styles';
 
 const AnswerScreen = (props) => {
   const dispatch = useDispatch();
@@ -39,16 +40,6 @@ const AnswerScreen = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    display: "flex",
-    flex: 1,
-    padding: 5,
-    paddingTop: 30,
-    backgroundColor: "#fff",
-  },
-});
 
 export const answerScreenOptions = (navData) => ({
   tabBarLabel: "Answers",

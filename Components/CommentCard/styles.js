@@ -1,23 +1,8 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-const Comment = (props) => {
-  return (
-    <View style={styles.comment}>
-      <View style={styles.avatar}>
-        <Text>User</Text>
-      </View>
-      <View style={styles.textCommentContainer}>
-        <Text style={styles.commentText}>{props.comment}</Text>
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
+export default styles = StyleSheet.create({
   comment: {
     display: "flex",
     flexDirection: "row",
@@ -51,5 +36,3 @@ const styles = StyleSheet.create({
     color: colors.textColor,
   },
 });
-
-export default Comment;

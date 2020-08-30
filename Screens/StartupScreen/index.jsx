@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, AsyncStorage, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import Colors from '../../constants/colors';
 import * as authActions from '../../redux/actions/user-auth';
+import styles from './styles';
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
@@ -42,11 +43,4 @@ const StartupScreen = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 export default StartupScreen;

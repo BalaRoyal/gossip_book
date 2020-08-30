@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableHighlight, View } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
+import styles from './styles';
 
 const InterestCard = (props) => {
   const { selected } = props;
@@ -48,27 +49,5 @@ const InterestCard = (props) => {
     </TouchableHighlight>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    justifyContent: "flex-end",
-    width: 100,
-    height: 100,
-    margin: 4,
-    backgroundColor: colors.whiteColor,
-    padding: 8,
-    borderRadius: 10,
-    fontWeight: "bold",
-  },
-  text: {
-    fontWeight: "600",
-    color: colors.whiteColor,
-  },
-  checkMark: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-});
 
 export default InterestCard;

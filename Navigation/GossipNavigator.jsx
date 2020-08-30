@@ -12,12 +12,11 @@ import { useDispatch } from 'react-redux';
 import HeaderButton from '../Components/HeaderButton';
 import colors from '../constants/colors';
 import { logout } from '../redux/actions/user-auth';
-import AnswersScreen, { answerScreenOptions } from '../Screens/Post/Answers';
-import NewPostScreen, { newPostScreenOptions } from '../Screens/Post/CreatePostScreen';
-import PostOverviewScreen from '../Screens/Post/PostOverviewScreen';
-import HomeScreen, { postNavigationOptions } from '../Screens/Post/Posts';
-import EditAccountScreen from '../Screens/User/EditAccountScreen';
-import ProfileScreen from '../Screens/User/ProfileScreen';
+import AnswersScreen, { answerScreenOptions } from '../Screens/AnswersScreen';
+import EditAccountScreen from '../Screens/EditAccountScreen';
+import PostOverviewScreen from '../Screens/PostOverviewScreen';
+import HomeScreen, { postNavigationOptions } from '../Screens/PostsScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 const defaultNavOptions = {
   headerStyle: {
@@ -54,19 +53,9 @@ const BottomTabNavigation = () => (
       options={postNavigationOptions}
     />
     <Tab.Screen
-      name="NewPost"
-      component={NewPostScreen}
-      options={newPostScreenOptions}
-    />
-    <Tab.Screen
       name="Answers"
       component={AnswersScreen}
       options={answerScreenOptions}
-    />
-    <Tab.Screen
-      name="Notifications"
-      options={newPostScreenOptions}
-      component={NewPostScreen}
     />
   </Tab.Navigator>
 );

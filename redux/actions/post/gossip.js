@@ -1,13 +1,12 @@
+import { axiosWithAuth } from '../../../custom-axios';
 import {
-  INITIATE_CREATE_GOSSIP,
-  FINISH_CREATE_GOSSIP,
   FAILED_CREATE_GOSSIP,
-  INITIATE_FETCH_GOSSIPS,
-  FINISH_FETCH_GOSSIPS,
   FAILED_FETCH_GOSSIPS,
-} from "../../action-types/post/post-types";
-
-import { axiosWithAuth } from "../../../custom-axios";
+  FINISH_CREATE_GOSSIP,
+  FINISH_FETCH_GOSSIPS,
+  INITIATE_CREATE_GOSSIP,
+  INITIATE_FETCH_GOSSIPS,
+} from '../../action-types/post/post-types';
 
 // --START-- CREATE NEW GOSSIP
 
@@ -29,7 +28,6 @@ export const createGossip = (gossipData) => async (dispatch) => {
   try {
     dispatch(startCreateGossip());
     const { data } = await axiosWithAuth.post("/gossip/gossips/", gossipData);
-    console.log(gossipData);
     dispatch(finishCreateGossip(data));
   } catch (error) {
     dispatch(createGossipFailed(error));

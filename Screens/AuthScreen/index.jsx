@@ -1,7 +1,7 @@
 import { Entypo } from '@expo/vector-icons';
 import * as Google from 'expo-google-app-auth';
 import React from 'react';
-import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -9,6 +9,7 @@ import LogoImage from '../../assets/images/gossip_book_logo.png';
 import Button from '../../Components/Button';
 import colors from '../../constants/colors';
 import { login } from '../../redux/actions/user-auth';
+import styles from './styles';
 
 const IOS_GOOGLE_AUTH_ID =
   "922743539522-i36qqi8rmaqgos9cud5a0rqklldo042c.apps.googleusercontent.com";
@@ -99,42 +100,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   authWithGoogle: (accessToken) => dispatch(login(accessToken, "google")),
   authWithFacebook: (accessToken) => dispatch(login(accessToken, "facebook")),
-});
-
-const styles = StyleSheet.create({
-  screen: {
-    justifyContent: "center",
-    flexDirection: "column",
-    flex: 1,
-    backgroundColor: "#ffffff",
-    justifyContent: "space-evenly",
-    paddingBottom: 50,
-  },
-  buttonContainer: {
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  welcomeText: {
-    textAlign: "center",
-    padding: 10,
-    fontSize: 24,
-    fontWeight: "300",
-    margin: 20,
-    lineHeight: 40,
-    letterSpacing: 1.5,
-    color: colors.textColor,
-  },
-  logoContainer: {
-    borderColor: "red",
-    display: "flex",
-    justifyContent: "center",
-  },
-  logoImage: {
-    width: 150,
-    height: 150,
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginOptionScreen);

@@ -1,12 +1,11 @@
 import React, { useReducer } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import Button from '../../Components/Button';
 import HeaderButton from '../../Components/HeaderButton';
 import InterestCard from '../../Components/InterestCard';
-import colors from '../../constants/colors';
 
 const SELECT = "SELECT";
 const DESELECT = "DESELECT";
@@ -117,31 +116,4 @@ export const userInterestScreenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({
-  interestContainer: {
-    display: "flex",
-  },
-  screen: {
-    display: "flex",
-    backgroundColor: "#fff",
-  },
-  headingText: {
-    margin: 10,
-    fontWeight: "bold",
-    color: colors.textColor,
-    fontSize: 22,
-
-    fontFamily: "open-sans",
-    fontWeight: "600",
-    alignSelf: "center",
-  },
-
-  interests: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
-});
 export default UserInterestScreen;
