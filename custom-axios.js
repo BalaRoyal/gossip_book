@@ -1,8 +1,7 @@
-import axios from "axios";
-import { AsyncStorage } from "react-native";
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
-const BASE_URL =
-  "http://gbookapi-env-1.eba-5hrqc52f.us-east-1.elasticbeanstalk.com/api";
+const BASE_URL = "http://31.220.51.26/api";
 
 // Create and export default axios instance.
 
@@ -23,7 +22,8 @@ axiosWithAuth.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `JWT ${token}`;
     }
-
+    config.headers["Content-Type"] = "multipart/form-data";
+    config.headers.Accept = "application/json";
     return config;
   },
   (error) => {

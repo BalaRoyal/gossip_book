@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
+import styles from './styles';
 
 const Input = (props) => (
   <TextInput
@@ -21,13 +21,5 @@ const Input = (props) => (
     {...props}
   />
 );
-
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: colors.whiteColor,
-    margin: 3,
-    color: colors.textColor,
-  },
-});
 
 export default Input;

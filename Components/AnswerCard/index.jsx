@@ -1,10 +1,10 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import colors from '../constants/colors';
-import { getInitials } from '../helpers/helper-functions';
+import { getInitials } from '../../helpers/helper-functions';
+import styles from './styles';
 
 const AnswerCard = (props) => {
   const { comment, user, question, gossip } = props;
@@ -53,55 +53,4 @@ const AnswerCard = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    display: "flex",
-    margin: 5,
-    flexDirection: "row",
-    borderColor: "#eee",
-    borderBottomWidth: 1,
-  },
-  userAvatar: {
-    height: 60,
-    width: 60,
-    backgroundColor: "#eee",
-    borderRadius: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    overflow: "hidden",
-  },
-  answer: {
-    flex: 1,
-    padding: 10,
-    marginLeft: 5,
-  },
-  text: {
-    fontFamily: "open-sans",
-    color: colors.textColor,
-    lineHeight: 24,
-    textAlign: "justify",
-    padding: 4,
-  },
-  button: {
-    fontSize: 12,
-    alignSelf: "flex-start",
-    margin: 10,
-    borderRadius: 10,
-  },
-  title: {
-    fontWeight: "bold",
-    color: colors.textColor,
-    padding: 5,
-  },
-  initials: {
-    textTransform: "uppercase",
-    fontSize: 24,
-    color: colors.primaryColor,
-  },
-  avatarImage: {
-    width: "100%",
-    height: "100%",
-  },
-});
 export default AnswerCard;

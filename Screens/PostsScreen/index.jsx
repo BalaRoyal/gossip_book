@@ -1,16 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import React, { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, FlatList, View } from 'react-native';
+import { IconButton, Searchbar } from 'react-native-paper';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { connect } from 'react-redux';
 
 import PostType from '../../Components/Chip';
 import ContentCard from '../../Components/ContentCard';
 import HeaderButton from '../../Components/HeaderButton';
+import NewPostActionSheet from '../../Components/NewPostActionSheet';
 import colors from '../../constants/colors';
 import { fetchGossips } from '../../redux/actions/post/gossip';
 import { fetchQuestions } from '../../redux/actions/post/question';
+import styles from './styles';
 
 const PostsScreen = (props) => {
   const [postType, setPostType] = useState("question");
@@ -47,6 +49,11 @@ const PostsScreen = (props) => {
       style={{ alignSelf: "center" }}
     />
   );
+
+  let rbSheet = useRef();
+  const getRef = (ref) => {
+    rbSheet = ref;
+  };
 
   const listHeader = (
     <>
@@ -100,44 +107,21 @@ const PostsScreen = (props) => {
       />
     );
   }
-  return <View style={styles.screen}>{content}</View>;
-};
-const styles = StyleSheet.create({
-  screen: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
+  return (
+    <View style={styles.screen}>
+      <IconButton
+        icon="pencil"
+        style={styles.floatingButton}
+        onPress={() => {
+          rbSheet.open();
+        }}
+      />
+      <NewPostActionSheet getRef={getRef} />
 
-  heading: {
-    flex: 1,
-    // backgroundColor: "yellowgreen",
-  },
-  postType: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    alignSelf: "center",
-    marginTop: 10,
-    backgroundColor: "#ffff",
-  },
-  searchBar: {
-    flex: 1,
-    minWidth: 300,
-    backgroundColor: "#eee",
-    elevation: 0,
-    flexDirection: "row-reverse",
-    marginTop: 10,
-    marginRight: 10,
-    maxWidth: 350,
-    paddingLeft: 4,
-  },
-  searchInput: {
-    backgroundColor: "#ccc",
-    flexGrow: 1,
-  },
-});
+      {content}
+    </View>
+  );
+};
 
 export const postsScreenOptions = (navData) => {
   return {

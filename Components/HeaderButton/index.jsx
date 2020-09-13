@@ -3,7 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { HeaderButton } from 'react-navigation-header-buttons';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 const CustomHeaderButton = (props) => {
   return (
