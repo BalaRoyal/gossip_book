@@ -53,3 +53,18 @@ export const toCamelCase = (attribute) => {
 
   return [firstWord].concat(capitalizedWords).join("");
 };
+
+export const formatNumberWithSuffix = (number) => {
+  const suffixes = [' ', 'k', 'M', 'B', 'T', 'P', 'E'];
+  const suffixNum = Math.floor(('' + number).length / 3);
+  let shortValue = parseFloat(
+    (suffixNum !== 0 ? number / Math.pow(1000, suffixNum) : number).toPrecision(
+      2
+    )
+  );
+  if (shortValue % 1 !== 0) {
+    shortValue = shortValue.toFixed(1);
+  }
+  return shortValue + suffixes[suffixNum];
+};
+

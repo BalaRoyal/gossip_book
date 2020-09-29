@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import colors from '../../constants/colors';
 
+
+
 export default styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
@@ -46,12 +48,7 @@ export default styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "open-sans",
   },
-  VoteStat: {
-    padding: 2,
-    flex: 1,
-    alignSelf: "center",
-    backgroundColor: "#fff",
-  },
+
   cardImage: {},
   image: {
     width: "100%",

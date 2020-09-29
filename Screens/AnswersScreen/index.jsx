@@ -22,6 +22,16 @@ const AnswerScreen = (props) => {
     ({ userAnswers }) => userAnswers
   );
 
+  const userAnswers = [];
+
+  if (answers) {
+    userAnswers.concat(answers);
+  }
+
+  if (comments) {
+    userAnswers.concat(comments);
+  }
+
   return (
     <View
       style={{
@@ -35,7 +45,7 @@ const AnswerScreen = (props) => {
       ) : (
         <FlatList
           style={styles.screen}
-          data={answers?.concat(comments)}
+          data={userAnswers}
           renderItem={({ item, index }) => <AnswerCard {...item} key={index} />}
           keyExtractor={(item) => `${item.id}`}
         />

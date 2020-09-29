@@ -1,10 +1,13 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { axiosWithAuth } from '../../../custom-axios';
 import {
   EDIT_USER_PROFILE_FAILURE,
   EDIT_USER_PROFILE_START,
   EDIT_USER_PROFILE_SUCCESS,
+  FOLLOW_USER_FAILURE,
+  FOLLOW_USER_START,
+  FOLLOW_USER_SUCCESS,
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_START,
   GET_USER_PROFILE_SUCCESS,
@@ -12,6 +15,7 @@ import {
   UPLOAD_USER_IMAGE_START,
   UPLOAD_USER_IMAGE_SUCCESS,
 } from '../../action-types/user/user-action-types';
+
 
 // GET USER PROFILE
 const getProfileStart = () => ({ type: GET_USER_PROFILE_START });
@@ -106,5 +110,41 @@ export const uploadProfileImage = (formData) => async (dispatch) => {
     dispatch(addProfileImageSuccess(data));
   } catch (error) {
     dispatch(addProfileImageFailed(error));
+  }
+};
+
+// FOLLOW USER
+
+const followUserStart = () => ({
+  type: FOLLOW_USER_START,
+});
+
+const followUserSuccess = (data) => ({
+  type: FOLLOW_USER_SUCCESS,
+  payload: { data },
+});
+
+const followUserFailure = (error) => ({
+  type: FOLLOW_USER_FAILURE,
+  payload: { error },
+});
+
+export const followUser = (userId) => async (dispatch) => {
+  try {
+    dispatch(followUserStart());
+
+    const userData = await AsyncStorage.getItem("userData");
+    const { userId: followerId } = JSON.parse(userData);
+
+    const formData = new FormData();
+    formData.append("user", followerId);
+
+    const { data } = await axiosWithAuth.post(
+      `/user/profile/${userId}/followers/`
+    );
+    dispatch(followUserSuccess(data));
+  } catch (error) {
+    console.log(error);
+    dispatch(followUserFailure(error));
   }
 };

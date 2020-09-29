@@ -1,12 +1,18 @@
-import React from 'react';
-import { Image, ImageBackground, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, AsyncStorage, Image, ImageBackground, Text, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BackgroundImage from '../../assets/images/profileBG.jpg';
 import colors from '../../constants/colors';
+import { followUser, getUserProfile } from '../../redux/actions/user/profile';
 import styles from './styles';
 
 const UserProfileScreen = (props) => {
+  const dispatch = useDispatch();
+  const [isFollowing, setIsFollowing] = useState(false);
+
   const { user } = props.route.params;
   const {
     profile_image_url,
@@ -14,11 +20,56 @@ const UserProfileScreen = (props) => {
     last_name,
     followers,
     following,
+    id,
   } = user;
 
   const uri =
     profile_image_url ??
     "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSfmJO1vZOid-nPBHG4aMhenFmy5zW4qPg_-g&usqp=CAU";
+
+  const { profile, loading, error } = useSelector(({ user }) => user);
+
+  useFocusEffect(
+    useCallback(() => {
+      const getProfile = async () => {
+        const userData = await AsyncStorage.getItem("userData");
+        const transformedData = JSON.parse(userData);
+        dispatch(getUserProfile(transformedData.userId));
+      };
+      getProfile();
+    }, [dispatch])
+  );
+
+  useEffect(() => {
+    const checkIsFollowing = async () => {
+      try {
+        // check if the current logged in user follows the user profile
+        const following = profile.following.find((followingUser) => {
+          return (
+            followingUser.user_id === id && followingUser.is_following === true
+          );
+        });
+
+        if (following) {
+          setIsFollowing(true);
+        } else {
+          setIsFollowing(false);
+        }
+      } catch (error) {
+        console.log(error);
+        Alert.alert("Something went wrong!", "");
+      }
+    };
+
+    if (!loading && profile.following) {
+      checkIsFollowing();
+    }
+  }, [profile, loading]);
+
+  const handleFollowUser = () => {
+    dispatch(followUser(id));
+  };
+
   return (
     <View style={styles.screen}>
       <ImageBackground source={BackgroundImage} style={styles.image}>
@@ -53,7 +104,7 @@ const UserProfileScreen = (props) => {
         </View>
       </View>
       <Button
-        onPress={() => {}}
+        onPress={handleFollowUser}
         mode="contained"
         style={styles.followButton}
         theme={{
@@ -63,8 +114,9 @@ const UserProfileScreen = (props) => {
           },
           roundness: 5,
         }}
+        loading={loading}
       >
-        Follow
+        {isFollowing ? "Un follow" : "Follow"}
       </Button>
 
       <IconButton

@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxThunk from 'redux-thunk';
 
+import notificationReducer from './reducers/notifications';
 import gossipReducer from './reducers/post/gossip';
 import postOverViewReducer from './reducers/post/postOverView';
 import questionReducer from './reducers/post/question';
@@ -18,6 +19,7 @@ const baseReducer = combineReducers({
   userAnswers: userAnswers,
   user: profileReducer,
   postOverview: postOverViewReducer,
+  userNotifications: notificationReducer,
 });
 
 const store = createStore(

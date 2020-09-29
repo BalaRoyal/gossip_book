@@ -9,6 +9,9 @@ import {
   GET_QUESTION_BY_ID_SUCCESS,
   INITIATE_CREATE_QUESTION,
   INITIATE_FETCH_QUESTIONS,
+  VOTE_QUESTION_FAILURE,
+  VOTE_QUESTION_START,
+  VOTE_QUESTION_SUCCESS,
 } from '../../action-types/post/post-types';
 
 // --START-- CREATE NEW QUESTION
@@ -90,5 +93,35 @@ export const getQuestionById = (id) => async (dispatch) => {
     dispatch(getQuestionByIdSuccess(data));
   } catch (error) {
     dispatch(getQuestionByIdFailure(error));
+  }
+};
+
+// VOTE QUESTION ACTIONS
+
+const voteQuestionStart = () => ({
+  type: VOTE_QUESTION_START,
+});
+
+const voteQuestionSuccess = (data) => ({
+  type: VOTE_QUESTION_SUCCESS,
+  payload: { data },
+});
+
+const voteQuestionFailure = (error) => ({
+  type: VOTE_QUESTION_FAILURE,
+  payload: { error },
+});
+
+export const voteQuestion = (questionId, voteData) => async (dispatch) => {
+  try {
+    dispatch(voteQuestionStart());
+    const { data } = await axiosWithAuth.post(
+      `/question/questions/${questionId}/votes/`,
+      voteData
+    );
+    dispatch(voteQuestionSuccess(data));
+  } catch (error) {
+    console.log(error)
+    dispatch(voteQuestionFailure(error));
   }
 };

@@ -14,6 +14,7 @@ import colors from '../constants/colors';
 import { logout } from '../redux/actions/user-auth';
 import AnswersScreen, { answerScreenOptions } from '../Screens/AnswersScreen';
 import EditAccountScreen from '../Screens/EditAccountScreen';
+import NotificationsScreen, { NotificationNavigationOptions } from '../Screens/NotificationsScreen';
 import PostOverviewScreen from '../Screens/PostOverviewScreen';
 import HomeScreen, { postNavigationOptions } from '../Screens/PostsScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
@@ -57,6 +58,11 @@ const BottomTabNavigation = () => (
       name="Answers"
       component={AnswersScreen}
       options={answerScreenOptions}
+    />
+    <Tab.Screen
+      name="Notifications"
+      component={NotificationsScreen}
+      options={NotificationNavigationOptions}
     />
   </Tab.Navigator>
 );

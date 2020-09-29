@@ -1,13 +1,15 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, Text, TouchableNativeFeedback, View } from 'react-native';
+import { Text, TouchableNativeFeedback, View } from 'react-native';
 
 import { getInitials } from '../../helpers/helper-functions';
+import CustomCachedImage from '../CustomCachedImage';
+import VoteStat from '../VoteStat';
 import styles from './styles';
 
 const ContentCard = (props) => {
-  const { image_url: imageUrl, title, created_at, user } = props;
+  const { image_url: imageUrl, title, created_at, user, votes, hasVoted } = props;
 
   return (
     <TouchableNativeFeedback onPress={props.onPostOverview}>
@@ -24,7 +26,7 @@ const ContentCard = (props) => {
           >
             <View style={styles.userAvatar}>
               {user.profile_image_url ? (
-                <Image
+                <CustomCachedImage
                   source={{ uri: user.profile_image_url }}
                   style={styles.avatarImage}
                 />
@@ -41,7 +43,7 @@ const ContentCard = (props) => {
             </Text>
             <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
           </View>
-          <View style={styles.VoteStat}></View>
+          {hasVoted && <VoteStat votes={votes} />}
         </View>
         <View style={styles.cardTitle}>
           <Text style={styles.cardTitle}>{title}</Text>
@@ -49,9 +51,9 @@ const ContentCard = (props) => {
 
         {imageUrl && (
           <View style={styles.cardImage}>
-            <Image
+            <CustomCachedImage
               source={{
-                uri: imageUrl,
+                uri: imageUrl
               }}
               style={{ ...styles.image, minHeight: imageUrl ? 150 : 0 }}
             />
@@ -67,9 +69,12 @@ const ContentCard = (props) => {
   );
 };
 
-ContentCard.prototype = {
+ContentCard.propTypes = {
   user: PropTypes.object.isRequired,
   image_url: PropTypes.string,
+  votes: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  gossip_description: PropTypes.string
 };
 
 export default ContentCard;

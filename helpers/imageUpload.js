@@ -1,6 +1,7 @@
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
+import ImageResizer from 'react-native-image-resizer';
 
 const formatImage = (image) => {
   const imageFilePaths = image.uri.split("/");
@@ -11,6 +12,10 @@ const formatImage = (image) => {
     uri: image.uri,
     type: image.type,
   };
+
+  ImageResizer.createResizedImage(imageFile.uri,420,250,'JPEG',2).then((resizedImageUri) => {
+    imageFile.uri = resizedImageUri
+  }).catch((error) => console.log(error))
   return imageFile;
 };
 

@@ -32,8 +32,16 @@ const styles = StyleSheet.create({
     padding: 3,
     alignSelf: "flex-end",
   },
-
   buttonLabelStyle: { fontSize: 10, marginLeft: 6, fontWeight: "bold" },
+  noContent: {
+    display: 'flex',
+    alignItems: 'center',
+    padding:30,
+    backgroundColor: '#f8f8f8',
+    margin:20,
+    borderRadius:20,
+
+  }
 });
 
 export default styles;

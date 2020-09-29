@@ -8,13 +8,32 @@ import {
   GET_QUESTION_BY_ID_FAILURE,
   GET_QUESTION_BY_ID_START,
   GET_QUESTION_BY_ID_SUCCESS,
+  VOTE_GOSSIP_FAILURE,
+  VOTE_GOSSIP_START,
+  VOTE_GOSSIP_SUCCESS,
+  VOTE_QUESTION_FAILURE,
+  VOTE_QUESTION_START,
+  VOTE_QUESTION_SUCCESS,
 } from '../../action-types/post/post-types';
 
+const addOrReplaceVoteInstance  = (voteList, voteResponse) => {
+  const votes = [...voteList]
+  const index = votes.findIndex((vote) => vote.id === voteResponse.id)
+  if (index !== -1) {
+    votes[index] = voteResponse;
+  }
+   else {
+     votes.push(voteResponse)
+   }
+
+   return votes.filter((vote) => vote.vote !== 'UNDONE')
+}
 const initialState = {
   post: {},
   loading: false,
   error: null,
   loadingComments: false,
+  voting: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -78,6 +97,43 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loadingComments: false,
+        error: payload.error,
+      };
+    case VOTE_QUESTION_START:
+      return {
+        ...state,
+        voting: true,
+        error: null,
+      };
+    case VOTE_QUESTION_SUCCESS:
+      return {
+        ...state,
+        voting: false,
+        post: { ...state.post, votes: addOrReplaceVoteInstance(state.post.votes, payload.data) },
+      };
+    case VOTE_QUESTION_FAILURE:
+      return {
+        ...state,
+        voting: false,
+        error: payload.error,
+      };
+
+   case VOTE_GOSSIP_START:
+      return {
+        ...state,
+        voting: true,
+        error: null,
+      };
+    case VOTE_GOSSIP_SUCCESS:
+      return {
+        ...state,
+        voting: false,
+        post: { ...state.post, votes: addOrReplaceVoteInstance(state.post.votes, payload.data) },
+      };
+    case VOTE_GOSSIP_FAILURE:
+      return {
+        ...state,
+        voting: false,
         error: payload.error,
       };
     default:

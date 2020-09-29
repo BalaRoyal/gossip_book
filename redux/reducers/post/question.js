@@ -1,11 +1,11 @@
 import {
-  INITIATE_CREATE_QUESTION,
-  FINISH_CREATE_QUESTION,
   FAILED_CREATE_QUESTION,
-  INITIATE_FETCH_QUESTIONS,
-  FINISH_FETCH_QUESTIONS,
   FAILED_FETCH_QUESTIONS,
-} from "../../action-types/post/post-types";
+  FINISH_CREATE_QUESTION,
+  FINISH_FETCH_QUESTIONS,
+  INITIATE_CREATE_QUESTION,
+  INITIATE_FETCH_QUESTIONS,
+} from '../../action-types/post/post-types';
 
 const initialState = {
   questions: [],

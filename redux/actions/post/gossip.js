@@ -9,6 +9,9 @@ import {
   GET_GOSSIP_BY_ID_SUCCESS,
   INITIATE_CREATE_GOSSIP,
   INITIATE_FETCH_GOSSIPS,
+  VOTE_GOSSIP_FAILURE,
+  VOTE_GOSSIP_START,
+  VOTE_GOSSIP_SUCCESS,
 } from '../../action-types/post/post-types';
 
 // --START-- CREATE NEW GOSSIP
@@ -87,5 +90,33 @@ export const getGossipById = (id) => async (dispatch) => {
     dispatch(getGossipByIdSuccess(data));
   } catch (error) {
     dispatch(getGossipByIdFailure(error));
+  }
+};
+
+const voteGossipStart = () => ({
+  type: VOTE_GOSSIP_START,
+});
+
+const voteGossipSuccess = (data) => ({
+  type: VOTE_GOSSIP_SUCCESS,
+  payload: { data },
+});
+
+const voteGossipFailure = (error) => ({
+  type: VOTE_GOSSIP_FAILURE,
+  payload: { error },
+});
+
+export const voteGossip = (gossipId, voteData) => async (dispatch) => {
+  try {
+    dispatch(voteGossipStart());
+    const { data } = await axiosWithAuth.post(
+      `/gossip/gossips/${gossipId}/votes/`,
+      voteData
+    );
+
+    dispatch(voteGossipSuccess(data));
+  } catch (error) {
+    dispatch(voteGossipFailure(error));
   }
 };
