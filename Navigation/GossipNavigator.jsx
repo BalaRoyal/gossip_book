@@ -1,24 +1,29 @@
-import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import { Button, Platform, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useDispatch } from 'react-redux';
+import {
+  createDrawerNavigator,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { Button, Platform, View, Text } from "react-native";
+import { Searchbar } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useDispatch } from "react-redux";
 
-import HeaderButton from '../Components/HeaderButton';
-import colors from '../constants/colors';
-import { logout } from '../redux/actions/user-auth';
-import AnswersScreen, { answerScreenOptions } from '../Screens/AnswersScreen';
-import EditAccountScreen from '../Screens/EditAccountScreen';
-import NotificationsScreen, { NotificationNavigationOptions } from '../Screens/NotificationsScreen';
-import PostOverviewScreen from '../Screens/PostOverviewScreen';
-import HomeScreen, { postNavigationOptions } from '../Screens/PostsScreen';
-import ProfileScreen from '../Screens/ProfileScreen';
-import UserProfileScreen from '../Screens/ProfileScreen/UserProfile';
+import HeaderButton from "../Components/HeaderButton";
+import colors from "../constants/colors";
+import { logout } from "../redux/actions/user-auth";
+import AnswersScreen, { answerScreenOptions } from "../Screens/AnswersScreen";
+import EditAccountScreen from "../Screens/EditAccountScreen";
+import NotificationsScreen, {
+  NotificationNavigationOptions,
+} from "../Screens/NotificationsScreen";
+import PostOverviewScreen from "../Screens/PostOverviewScreen";
+import HomeScreen, { postNavigationOptions } from "../Screens/PostsScreen";
+import ProfileScreen from "../Screens/ProfileScreen";
+import UserProfileScreen from "../Screens/ProfileScreen/UserProfile";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -83,14 +88,16 @@ export const GossipStackNavigator = () => (
         headerLeft: () => (
           <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item
+              // title="search"
               title="Menu"
               iconName={
-                Platform.OS === "android" ? "user-circle-0" : "user-circle-o"
+                Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
               }
               iconSize={23}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+              color="blue"
             />
           </HeaderButtons>
         ),

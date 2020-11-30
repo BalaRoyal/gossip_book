@@ -1,17 +1,17 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { connect } from 'react-redux';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useRef, useState } from "react";
+import { ActivityIndicator, FlatList, View } from "react-native";
+import { IconButton } from "react-native-paper";
+import { connect } from "react-redux";
 
-import PostType from '../../Components/Chip';
-import ContentCard from '../../Components/ContentCard';
-import NewPostActionSheet from '../../Components/NewPostActionSheet';
-import colors from '../../constants/colors';
-import { fetchGossips } from '../../redux/actions/post/gossip';
-import { fetchQuestions } from '../../redux/actions/post/question';
-import styles from './styles';
+import PostType from "../../Components/Chip";
+import ContentCard from "../../Components/ContentCard";
+import NewPostActionSheet from "../../Components/NewPostActionSheet";
+import colors from "../../constants/colors";
+import { fetchGossips } from "../../redux/actions/post/gossip";
+import { fetchQuestions } from "../../redux/actions/post/question";
+import styles from "./styles";
 
 const PostsScreen = (props) => {
   const [postType, setPostType] = useState("question");

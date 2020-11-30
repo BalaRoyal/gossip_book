@@ -1,15 +1,22 @@
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Text, TouchableNativeFeedback, View } from 'react-native';
+import moment from "moment";
+import PropTypes from "prop-types";
+import React from "react";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 
-import { getInitials } from '../../helpers/helper-functions';
-import CustomCachedImage from '../CustomCachedImage';
-import VoteStat from '../VoteStat';
-import styles from './styles';
+import { getInitials } from "../../helpers/helper-functions";
+import CustomCachedImage from "../CustomCachedImage";
+import VoteStat from "../VoteStat";
+import styles from "./styles";
 
 const ContentCard = (props) => {
-  const { image_url: imageUrl, title, created_at, user, votes, hasVoted } = props;
+  const {
+    image_url: imageUrl,
+    title,
+    created_at,
+    user,
+    votes,
+    hasVoted,
+  } = props;
 
   return (
     <TouchableNativeFeedback onPress={props.onPostOverview}>
@@ -43,7 +50,7 @@ const ContentCard = (props) => {
             </Text>
             <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
           </View>
-          {hasVoted && <VoteStat votes={votes} />}
+          {<VoteStat votes={votes} />}
         </View>
         <View style={styles.cardTitle}>
           <Text style={styles.cardTitle}>{title}</Text>
@@ -53,7 +60,7 @@ const ContentCard = (props) => {
           <View style={styles.cardImage}>
             <CustomCachedImage
               source={{
-                uri: imageUrl
+                uri: imageUrl,
               }}
               style={{ ...styles.image, minHeight: imageUrl ? 150 : 0 }}
             />
@@ -74,7 +81,7 @@ ContentCard.propTypes = {
   image_url: PropTypes.string,
   votes: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  gossip_description: PropTypes.string
+  gossip_description: PropTypes.string,
 };
 
 export default ContentCard;

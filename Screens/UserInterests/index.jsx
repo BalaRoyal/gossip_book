@@ -1,11 +1,11 @@
-import React, { useReducer } from 'react';
-import { ScrollView, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import React, { useReducer } from "react";
+import { ScrollView, View } from "react-native";
+import { Text } from "react-native-paper";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import Button from '../../Components/Button';
-import HeaderButton from '../../Components/HeaderButton';
-import InterestCard from '../../Components/InterestCard';
+import Button from "../../Components/Button";
+import HeaderButton from "../../Components/HeaderButton";
+import InterestCard from "../../Components/InterestCard";
 
 const SELECT = "SELECT";
 const DESELECT = "DESELECT";
