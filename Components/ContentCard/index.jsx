@@ -50,7 +50,7 @@ const ContentCard = (props) => {
             </Text>
             <Text style={styles.time}> {moment(created_at).fromNow()} </Text>
           </View>
-          {<VoteStat votes={votes} />}
+          {props.gossip_description && <VoteStat votes={votes} />}
         </View>
         <View style={styles.cardTitle}>
           <Text style={styles.cardTitle}>{title}</Text>

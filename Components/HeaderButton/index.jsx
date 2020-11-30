@@ -10,7 +10,7 @@ const CustomHeaderButton = (props) => {
     <HeaderButton
       {...props}
       IconComponent={FontAwesome}
-      iconSize={props.size ? props.size : 32}
+      iconSize={props.size ? props.size : 43}
       color={
         Platform.OS === "android" ? colors.primaryColor : colors.primaryColor
       }

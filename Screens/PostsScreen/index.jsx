@@ -4,7 +4,6 @@ import React, { useCallback, useRef, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { connect } from "react-redux";
-
 import PostType from "../../Components/Chip";
 import ContentCard from "../../Components/ContentCard";
 import NewPostActionSheet from "../../Components/NewPostActionSheet";

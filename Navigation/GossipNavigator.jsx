@@ -169,12 +169,13 @@ const ProfileNavigation = ({ navigation }) => (
             <Item
               title="Menu"
               iconName={
-                Platform.OS === "android" ? "user-circle-0" : "user-circle-o"
+                Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
               }
               iconSize={23}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
+              color="blue"
             />
           </HeaderButtons>
         ),
