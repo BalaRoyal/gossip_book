@@ -25,6 +25,10 @@ const PostOverviewScreen = ({ route }) => {
   const [disabled, setDisabled] = useState({});
   const [voteType, setVoteType] = useState(1); // upvote
   const [clickable, setClickable] = useState(true);
+  const [like, setlike] = useState();
+  const [disLike, setDislike] = useState();
+  let percentDownVote = 0;
+  let percentUpVote = 0;
 
   const getRef = (ref) => {
     actionSheet = ref;
@@ -33,6 +37,7 @@ const PostOverviewScreen = ({ route }) => {
   const { post, loading, voting, loadingComments } = useSelector(
     ({ postOverview }) => postOverview
   );
+  let votes = post.votes;
 
   useEffect(() => {
     const { id, gossip_type } = data;
@@ -44,8 +49,20 @@ const PostOverviewScreen = ({ route }) => {
     setVoteType(1);
     const data = new FormData();
     data.append("vote", "UPVOTE");
-
     dispatch(fn(post.id, data));
+
+    votes = votes.filter((vote) => vote.vote !== "UNDONE");
+    const totalVotess = votes?.length;
+
+    const downVotess = votes.filter((vote) => vote.vote === "DOWNVOTE").length;
+    const upVotess = votes.filter((vote) => vote.vote === "UPVOTE").length;
+
+    if (totalVotess !== 0) {
+      percentUpVote = parseInt((upVotess * 100) / +totalVotess);
+      percentDownVote = parseInt((downVotess * 100) / totalVotess);
+      setlike(percentUpVote);
+      setDislike(percentDownVote);
+    }
   };
 
   const handleDownVote = (post) => {
@@ -57,24 +74,24 @@ const PostOverviewScreen = ({ route }) => {
   };
 
   const hasData = Object.keys(post).length > 0;
-  const { votes } = post;
+  const { votess } = post;
 
   useEffect(() => {
     const getUser = async () => {
       const userData = await AsyncStorage.getItem("userData");
       const { userId } = JSON.parse(userData);
 
-      if (votes) {
-        const postVotes = votes.filter((vote) => vote.vote !== "UNDONE");
-        const voteIndex = postVotes.findIndex(
+      if (votess) {
+        const postVotess = votess.filter((vote) => vote.vote !== "UNDONE");
+        const voteIndex = postVotess.findIndex(
           (vote) => vote.vote === "UPVOTE" && vote.voted_by === userId
         );
-        const downVoteIndex = postVotes.findIndex(
+        const downVoteIndex = postVotess.findIndex(
           (vote) => vote.vote === "DOWNVOTE" && vote.voted_by === userId
         );
 
         if (voteIndex !== -1) {
-          console.log(voteIndex, votes[voteIndex]);
+          console.log(voteIndex, votess[voteIndex]);
           setHasVoted(true);
         }
 
@@ -85,7 +102,7 @@ const PostOverviewScreen = ({ route }) => {
     };
 
     getUser();
-  }, [votes]);
+  }, [votess]);
 
   useEffect(() => {
     if (voting) {
@@ -169,7 +186,10 @@ const PostOverviewScreen = ({ route }) => {
                         labelStyle={styles.buttonLabelStyle}
                         icon={({ color }) =>
                           !post.gossip_description ? (
-                            <AntDesign name="like2" color={color} size={16} />
+                            <View style={{ flexDirection: "row" }}>
+                              <AntDesign name="like2" color={color} size={16} />
+                              <Text>{like}</Text>
+                            </View>
                           ) : (
                             // <Text>vansh</Text>
                             <FontAwesome5
@@ -191,11 +211,14 @@ const PostOverviewScreen = ({ route }) => {
                         {...disabled}
                         icon={({ size, color }) =>
                           !post.gossip_description ? (
-                            <AntDesign
-                              name="dislike2"
-                              color={color}
-                              size={16}
-                            />
+                            <View style={{ flexDirection: "row" }}>
+                              <AntDesign
+                                name="dislike2"
+                                color={color}
+                                size={16}
+                              />
+                              <Text>{disLike}</Text>
+                            </View>
                           ) : (
                             <FontAwesome5
                               name="times-circle"
@@ -221,14 +244,14 @@ const PostOverviewScreen = ({ route }) => {
                                       text: "Yes",
                                       onPress: () => {
                                         setClickable(false);
-                                        handleUpVote(post);
+                                        handleDownVote(post);
                                       },
                                     },
                                   ],
                                   { cancelable: false }
                                 )
                               : !post.gossip_description
-                              ? handleUpVote(post)
+                              ? handleDownVote(post)
                               : null
                             : null;
                         }}
@@ -273,5 +296,8 @@ const PostOverviewScreen = ({ route }) => {
     </>
   );
 };
+// PostOverviewScreen.propTypes = {
+//   votess: PropTypes.array.isRequired,
+// };
 
 export default PostOverviewScreen;

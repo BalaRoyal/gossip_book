@@ -22,7 +22,9 @@ FACEBOOK_CLIENT_ID = "0215ccbe764c1cfb043911acb6180455";
 
 const LoginOptionScreen = (props) => {
   const { authWithGoogle, authWithFacebook, loading, error } = props;
-
+  //rRw++LUjmZZ+58EbN5DVhGAnkX4=
+  //rRw__LUjmZZ_58EbN5DVhGAnkX4=
+  //xnb3nfVSqRIpd6dckeH71ZjPqvc=
   // Login with Google
   const handlerLoginWithGoogle = async () => {
     const { type, accessToken, user } = await Google.logInAsync({
@@ -41,7 +43,7 @@ const LoginOptionScreen = (props) => {
   const handleAuthWithFacebook = async () => {
     // const { type , accessToken, user} =
     try {
-      await Facebook.initializeAsync("376367830261018");
+      await Facebook.initializeAsync("2517327701899366");
       const {
         type,
         token,
