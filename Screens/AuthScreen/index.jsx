@@ -62,6 +62,7 @@ const LoginOptionScreen = (props) => {
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
+      console.log(message, "errorm");
     }
   };
 
