@@ -14,26 +14,27 @@ import {
   VOTE_QUESTION_FAILURE,
   VOTE_QUESTION_START,
   VOTE_QUESTION_SUCCESS,
-} from '../../action-types/post/post-types';
+  VOTE_DISABLE,
+} from "../../action-types/post/post-types";
 
-const addOrReplaceVoteInstance  = (voteList, voteResponse) => {
-  const votes = [...voteList]
-  const index = votes.findIndex((vote) => vote.id === voteResponse.id)
+const addOrReplaceVoteInstance = (voteList, voteResponse) => {
+  const votes = [...voteList];
+  const index = votes.findIndex((vote) => vote.id === voteResponse.id);
   if (index !== -1) {
     votes[index] = voteResponse;
+  } else {
+    votes.push(voteResponse);
   }
-   else {
-     votes.push(voteResponse)
-   }
 
-   return votes.filter((vote) => vote.vote !== 'UNDONE')
-}
+  return votes.filter((vote) => vote.vote !== "UNDONE");
+};
 const initialState = {
   post: {},
   loading: false,
   error: null,
   loadingComments: false,
   voting: false,
+  disable: true,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -109,7 +110,10 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         voting: false,
-        post: { ...state.post, votes: addOrReplaceVoteInstance(state.post.votes, payload.data) },
+        post: {
+          ...state.post,
+          votes: addOrReplaceVoteInstance(state.post.votes, payload.data),
+        },
       };
     case VOTE_QUESTION_FAILURE:
       return {
@@ -118,7 +122,7 @@ export default (state = initialState, { type, payload }) => {
         error: payload.error,
       };
 
-   case VOTE_GOSSIP_START:
+    case VOTE_GOSSIP_START:
       return {
         ...state,
         voting: true,
@@ -128,13 +132,21 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         voting: false,
-        post: { ...state.post, votes: addOrReplaceVoteInstance(state.post.votes, payload.data) },
+        post: {
+          ...state.post,
+          votes: addOrReplaceVoteInstance(state.post.votes, payload.data),
+        },
       };
     case VOTE_GOSSIP_FAILURE:
       return {
         ...state,
         voting: false,
         error: payload.error,
+      };
+    case VOTE_DISABLE:
+      return {
+        ...state,
+        disable: false,
       };
     default:
       return state;

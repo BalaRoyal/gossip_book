@@ -11,9 +11,13 @@ import colors from "../../constants/colors";
 import { fetchGossips } from "../../redux/actions/post/gossip";
 import { fetchQuestions } from "../../redux/actions/post/question";
 import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const PostsScreen = (props) => {
   const [postType, setPostType] = useState("question");
+  // props.navigation.setOptions({ title: "Updated!" });
+  // const navigation = useNavigation();
+  // navigation.setOptions({ headerShown: false });
 
   const handleSelected = (type) => {
     setPostType(type);

@@ -8,7 +8,11 @@ import CommentActionSheet from "../../Components/CommentActionSheet";
 import Comment from "../../Components/CommentCard";
 import ContentCard from "../../Components/ContentCard";
 import colors from "../../constants/colors";
-import { getGossipById, voteGossip } from "../../redux/actions/post/gossip";
+import {
+  getGossipById,
+  voteGossip,
+  voteDisable,
+} from "../../redux/actions/post/gossip";
 import {
   getQuestionById,
   voteQuestion,
@@ -24,7 +28,7 @@ const PostOverviewScreen = ({ route }) => {
   const [hasDownVoted, setHasDownVoted] = useState(false);
   const [disabled, setDisabled] = useState({});
   const [voteType, setVoteType] = useState(1); // upvote
-  const [clickable, setClickable] = useState(true);
+  // const [clickable, setClickable] = useState(disable);
   const [like, setlike] = useState();
   const [disLike, setDislike] = useState();
   let percentDownVote = 0;
@@ -34,14 +38,16 @@ const PostOverviewScreen = ({ route }) => {
     actionSheet = ref;
   };
 
-  const { post, loading, voting, loadingComments } = useSelector(
+  const { post, loading, voting, loadingComments, disable } = useSelector(
     ({ postOverview }) => postOverview
   );
   let votes = post.votes;
+  const clickable = disable;
 
   useEffect(() => {
     const { id, gossip_type } = data;
     gossip_type ? dispatch(getGossipById(id)) : dispatch(getQuestionById(id));
+    // setClickable(disable);
   }, [data]);
 
   const handleUpVote = (post) => {
@@ -171,7 +177,7 @@ const PostOverviewScreen = ({ route }) => {
                                     {
                                       text: "Yes",
                                       onPress: () => {
-                                        setClickable(false);
+                                        dispatch(voteDisable());
                                         handleUpVote(post);
                                       },
                                     },
@@ -243,7 +249,7 @@ const PostOverviewScreen = ({ route }) => {
                                     {
                                       text: "Yes",
                                       onPress: () => {
-                                        setClickable(false);
+                                        dispatch(voteDisable());
                                         handleDownVote(post);
                                       },
                                     },

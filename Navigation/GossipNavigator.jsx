@@ -6,7 +6,14 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Button, Platform, View, Text } from "react-native";
+import {
+  Button,
+  Platform,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { Searchbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -24,6 +31,7 @@ import PostOverviewScreen from "../Screens/PostOverviewScreen";
 import HomeScreen, { postNavigationOptions } from "../Screens/PostsScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import UserProfileScreen from "../Screens/ProfileScreen/UserProfile";
+import { useSelector } from "react-redux";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -43,7 +51,7 @@ const defaultNavOptions = {
     fontFamily: "open-sans",
   },
 };
-
+let image;
 // TAB NAVIGATOR
 
 const Tab = createMaterialBottomTabNavigator();
@@ -75,6 +83,13 @@ const BottomTabNavigation = () => (
 // STACK NAVIGATOR
 
 const Stack = createStackNavigator();
+const getImage = () => {
+  const { profile } = useSelector((state) => state.user);
+  return (
+    profile.profile_image_url ||
+    "https://pickaface.net/gallery/avatar/jquan0755a199bfcb71d.png"
+  );
+};
 
 export const GossipStackNavigator = () => (
   <Stack.Navigator defaultNavOptions={defaultNavOptions}>
@@ -86,20 +101,37 @@ export const GossipStackNavigator = () => (
         headerStyle: defaultNavOptions.headerStyle,
 
         headerLeft: () => (
-          <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item
-              // title="search"
-              title="Menu"
-              iconName={
-                Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
-              }
-              iconSize={23}
-              onPress={() => {
-                navigation.toggleDrawer();
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+            <Image
+              source={{
+                uri:
+                  image ||
+                  "https://pickaface.net/gallery/avatar/jquan0755a199bfcb71d.png",
               }}
-              color="blue"
+              style={{
+                width: 60,
+                height: 60,
+                marginLeft: 10,
+                borderRadius: 30,
+                // backgroundColor: "red",
+              }}
             />
-          </HeaderButtons>
+          </TouchableOpacity>
+
+          // <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          //   <Item
+          //     // title="search"
+          //     title="Menu"
+          //     iconName={
+          //       Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
+          //     }
+          //     iconSize={23}
+          //     onPress={() => {
+          //       // navigation.toggleDrawer();
+          //     }}
+          //     color="blue"
+          //   />
+          // </HeaderButtons>
         ),
 
         headerRight: () => (
@@ -196,6 +228,8 @@ const Drawer = createDrawerNavigator();
 
 export const MainNavigator = () => {
   const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.user);
+  image = profile.profile_image_url;
   return (
     <Drawer.Navigator
       drawerContent={(props) => {

@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../../../custom-axios';
+import { axiosWithAuth } from "../../../custom-axios";
 import {
   FAILED_CREATE_GOSSIP,
   FAILED_FETCH_GOSSIPS,
@@ -12,7 +12,8 @@ import {
   VOTE_GOSSIP_FAILURE,
   VOTE_GOSSIP_START,
   VOTE_GOSSIP_SUCCESS,
-} from '../../action-types/post/post-types';
+  VOTE_DISABLE,
+} from "../../action-types/post/post-types";
 
 // --START-- CREATE NEW GOSSIP
 
@@ -120,3 +121,6 @@ export const voteGossip = (gossipId, voteData) => async (dispatch) => {
     dispatch(voteGossipFailure(error));
   }
 };
+export const voteDisable = () => ({
+  type: VOTE_DISABLE,
+});
