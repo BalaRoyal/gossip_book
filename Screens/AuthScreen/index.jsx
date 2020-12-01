@@ -12,6 +12,8 @@ import { login } from "../../redux/actions/user-auth";
 import styles from "./styles";
 import { LoginManager } from "react-native-fbsdk";
 import * as Facebook from "expo-facebook";
+import { useDispatch, useSelector } from "react-redux";
+import { finishUserLogin } from "../../redux/actions/user-auth";
 
 const IOS_GOOGLE_AUTH_ID =
   "922743539522-i36qqi8rmaqgos9cud5a0rqklldo042c.apps.googleusercontent.com";
@@ -22,9 +24,12 @@ FACEBOOK_CLIENT_ID = "0215ccbe764c1cfb043911acb6180455";
 
 const LoginOptionScreen = (props) => {
   const { authWithGoogle, authWithFacebook, loading, error } = props;
+  const dispatch = useDispatch();
+
   //rRw++LUjmZZ+58EbN5DVhGAnkX4=
   //rRw__LUjmZZ_58EbN5DVhGAnkX4=
   //xnb3nfVSqRIpd6dckeH71ZjPqvc=
+  // ga0RGNYHvNM5d0SLGQfpQWAPGJ8=
   // Login with Google
   const handlerLoginWithGoogle = async () => {
     const { type, accessToken, user } = await Google.logInAsync({
@@ -51,14 +56,22 @@ const LoginOptionScreen = (props) => {
         permissions,
         declinedPermissions,
       } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ["public_profile"],
+        permissions: ["public_profile", "email"],
       });
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
+        await authWithFacebook(token);
         const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}`
-        );
-        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data, "data");
+            alert("fb login success with email " + data.email);
+            // dispatch(finishUserLogin(data));
+            // setLoggedinStatus(true);
+            // setUserData(data);
+          });
       } else {
         // type === 'cancel'
       }
