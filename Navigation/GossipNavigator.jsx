@@ -197,19 +197,35 @@ const ProfileNavigation = ({ navigation }) => (
     <Stack.Screen
       options={{
         headerLeft: () => (
-          <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item
-              title="Menu"
-              iconName={
-                Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
-              }
-              iconSize={23}
-              onPress={() => {
-                navigation.toggleDrawer();
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+            <Image
+              source={{
+                uri:
+                  image ||
+                  "https://pickaface.net/gallery/avatar/jquan0755a199bfcb71d.png",
               }}
-              color="blue"
+              style={{
+                width: 60,
+                height: 60,
+                marginLeft: 10,
+                borderRadius: 30,
+                // backgroundColor: "red",
+              }}
             />
-          </HeaderButtons>
+          </TouchableOpacity>
+          // <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          //   <Item
+          //     title="Menu"
+          //     iconName={
+          //       Platform.OS === "android" ? "user-circle-o" : "user-circle-o"
+          //     }
+          //     iconSize={23}
+          //     onPress={() => {
+          //       navigation.toggleDrawer();
+          //     }}
+          //     color="blue"
+          //   />
+          // </HeaderButtons>
         ),
         headerStyle: defaultNavOptions.headerStyle,
         headerTitle: "Account information",
